@@ -1,0 +1,369 @@
+﻿@page
+@model Caderly.Pages.lovedones_bookingModel
+@{
+    ViewData["Title"] = "Loved Ones Booking";
+}
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/css/calendar.css">
+
+</head>
+<style type='text/css'>
+    /* basic positioning */
+    .legend {
+        list-style: none;
+    }
+
+        .legend li {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .legend span {
+            border: 1px solid #ccc;
+            float: left;
+            width: 12px;
+            height: 12px;
+            margin: 2px;
+        }
+        /* your colors */
+        .legend .superawesome {
+            background-color: #C01E1E;
+        }
+
+        .legend .awesome {
+            background-color: #E2CE19;
+        }
+
+        .legend .kindaawesome {
+            background-color: #36C160;
+        }
+
+        .legend .notawesome {
+            background-color: #000000;
+        }
+
+    .legendcolor {
+    }
+
+        .legendcolor:after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            content: '';
+            background: #28a745;
+        }
+</style>
+<main>
+    <br />
+    <br />
+    <div class="container">
+        <div class="row justify-content-sm-center">
+            <div class="cl-xl-7 col-lg-8 col-md-10">
+                <!-- Section Tittle -->
+                <div class="section-tittle text-center mb-70">
+                    <h1>Book an appointment</h1>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+    <div class="container">
+        <div class="col col-md-auto">
+            <div class="about-caption mb-50">
+                <!-- Section Tittle -->
+                <div class="section-tittle mb-35">
+                    <h4><strong>Select type of appointment</strong></h4>
+                </div>
+                <div class="button-group-area">
+                    <a class="genric-btn primary circle" id="button1" value="f2f">face-to-face Visits</a>
+                    <a class="genric-btn primary-border circle" id="button2" value="vs">Videocall Sessions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col col-md-auto">
+            <div class="about-caption mb-50">
+                <!-- Section Tittle -->
+                <div class="section-tittle mb-35">
+                    <h4><strong>Create your appointment</strong></h4>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div>
+                <ul class="legend">
+                    <li><span class="superawesome"></span>Fully Booked</li>
+                    <li><span class="awesome"></span>Semi-Full</li>
+                    <li><span class="kindaawesome"></span>Available</li>
+                    <li><span class="notawesome"></span>Close</li>
+                </ul>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="container">
+            <div class="row">
+                <div class="calendar-container">
+                    <div class="calendar">
+                        <div class="year-header">
+                            <span class="left-button fa fa-chevron-left" id="prev"> </span>
+                            <span class="year" id="label"></span>
+                            <span class="right-button fa fa-chevron-right" id="next"> </span>
+                        </div>
+                        <table class="months-table w-100">
+                            <tbody>
+                                <tr class="months-row">
+                                    <td class="month">Jan</td>
+                                    <td class="month">Feb</td>
+                                    <td class="month">Mar</td>
+                                    <td class="month">Apr</td>
+                                    <td class="month">May</td>
+                                    <td class="month">Jun</td>
+                                    <td class="month">Jul</td>
+                                    <td class="month">Aug</td>
+                                    <td class="month">Sep</td>
+                                    <td class="month">Oct</td>
+                                    <td class="month">Nov</td>
+                                    <td class="month">Dec</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="days-table w-100">
+                            <td class="day">Sun</td>
+                            <td class="day">Mon</td>
+                            <td class="day">Tue</td>
+                            <td class="day">Wed</td>
+                            <td class="day">Thu</td>
+                            <td class="day">Fri</td>
+                            <td class="day">Sat</td>
+                        </table>
+                        <div class="frame">
+                            <table class="dates-table w-100">
+                                <tbody class="tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="events-container">
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+    <div id="f2f">
+        <div class="container">
+            <div class="col col-lg-auto">
+                <div class="about-caption mb-50">
+                    <div class="form-group row">
+                        <h6 class="col-sm-2 col-form-label"><strong>Title of booking</strong></h6>
+                        <div class="col-sm-6">
+                            <input class="form-control valid" name="title" id="title" type="text" placeholder="Title of booking" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label">
+                            <h6><strong>Number of visitors</strong></h6>
+                            <label style="font-size:10px;">Due to Covid-19 restrictions, Groups are limited to 5 only</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="form-control" id="sel1">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2 col-form-label">
+                            <h6><strong>Duration of visits</strong></h6>
+                            <label style="font-size:10px;">Visitation closes at 6pm.</label>
+                            <label style="font-size:10px;">Visitors are allowed to leave earlier than their allocaed duration of stay.</label>
+                        </div>
+                        <div class="col-sm-1">
+                            <select class="form-control" id="sel1">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                        </div>
+                        hour(s)
+                        <div class="col-sm-4 float-right">
+                            <button type="button" class="btn btn-primary genric-btn primary circle float-right" data-toggle="modal" data-target="#exampleModalCenter">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm your booking</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="float-left col-sm-5 d-flex justify-content-center border-right">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>12</strong></h1></center></li>
+                                <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>January</strong></h1></li>
+                                <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>2022 10:00am</strong></h6></li>
+                            </ul>
+                        </div>
+                        <div class="float-right col-sm-7 pl-5">
+                            <div class="row pb-10 d-inline-block">
+                                <label><strong>Title of booking:</strong></label>
+                                <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                                <div class="row">
+                                    <div class="col">
+                                        <label><strong>No. of visitors</strong></label>
+                                        <h5>10 visitors</h5>
+                                    </div>
+                                    <div class="col">
+                                        <label><strong>Duration of stay</strong></label>
+                                        <h5>1 hour</h5>
+                                    </div>
+                                </div>
+                                <label><strong>location</strong></label>
+                                <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Confirm booking</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="vs" style="display:none;">
+        <div class="container">
+            <div class="col col-lg-auto">
+                <div class="about-caption mb-50">
+                    <div class="form-group row">
+                        <h6 class="col-sm-2 col-form-label"><strong>Title of booking</strong></h6>
+                        <div class="col-sm-6">
+                            <input class="form-control valid" name="title" id="title" type="text" placeholder="Title of booking" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label">
+                            <h6><strong>Duration of visits</strong></h6>
+                            <label style="font-size:10px;">Visitation closes at 6pm.</label>
+                            <label style="font-size:10px;">Visitors are allowed to leave earlier than their allocaed duration of stay.</label>
+                        </div>
+                        <div class="col-sm-1">
+                            <select class="form-control" id="sel1">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                        </div>
+                        hour(s)
+                        <div class="col-sm-2 col-form-label">
+
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                        <div class="col-sm-5 float-right">
+                            <button type="button" class="btn btn-primary genric-btn primary circle float-right" data-toggle="modal" data-target="#exampleModalCenter">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm your booking</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="float-left col-sm-5 d-flex justify-content-center border-right">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item border-bottom-0"><center><h1><strong>12</strong></h1></center></li>
+                                <li class="list-group-item"><h2><strong>January</strong></h2></li>
+                                <li class="list-group-item"><h2><strong>January</strong></h2></li>
+                            </ul>
+                        </div>
+                        <div class="float-right col-sm-7 pl-5">
+                            <div class="row      pb-10 d-inline-block">
+                                <label><strong>Title of booking:</strong></label>
+                                <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                                <label><strong>Selected Timing</strong></label>
+                                <h5>11:30am</h5>
+                                <label><strong>No. of visitors</strong></label>
+                                <h5>10 visitors</h5>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Confirm booking</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</main>
+
+
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/popper.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/calendar.js"></script>
+<script>
+    document.getElementById("button2").addEventListener("click", displaybutton2);
+    document.getElementById("button1").addEventListener("click", displaybutton1);
+    function displaybutton2() {
+        document.getElementById("button2").classList.remove('primary-border');
+        document.getElementById("button2").classList.add('primary');
+        document.getElementById("button1").classList.remove('primary');
+        document.getElementById("button1").classList.add('primary-border');
+        document.getElementById("f2f").style.display = "none";
+        document.getElementById("vs").style.display = "block";
+
+
+    }
+    function displaybutton1() {
+        document.getElementById("button1").classList.remove('primary-border');
+        document.getElementById("button1").classList.add('primary');
+        document.getElementById("button2").classList.remove('primary');
+        document.getElementById("button2").classList.add('primary-border');
+        document.getElementById("f2f").style.display = "block";
+        document.getElementById("vs").style.display = "none";
+    }
+</script>
+

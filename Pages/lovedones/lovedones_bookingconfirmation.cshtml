@@ -1,0 +1,71 @@
+﻿@page
+@model Caderly.Pages.lovedones_bookingconfirmationModel
+@{
+    ViewData["Title"] = "Loved Ones booking confirmation";
+}
+
+<main>
+    <br />
+    <br />
+    <div class="container">
+        <div class="row justify-content-sm-center">
+            <div class="cl-xl-7 col-lg-8 col-md-10">
+                <!-- Section Tittle -->
+                <div class="section-tittle text-center mb-70">
+                    <h1>Yay! You're booked!</h1>
+                    <div class="pt-5">
+                        <h6>A confirmation email will be sent to you shortly</h6>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+    <div class="card w-100 mb-30 mr-10 shadow">
+        <div class="card-body">
+            <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>12</strong></h1></center></li>
+                    <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>January</strong></h1></li>
+                    <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>2022 10:00am</strong></h6></li>
+                </ul>
+            </div>
+            <div class="float-right col-sm-9 pl-5">
+                <div class="row col-sm-10 pb-10">
+                    <label><strong>Title of booking:&nbsp;</strong></label>
+                    <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                </div>
+                <div class="row col-sm-7 pb-10">
+                    <div class="col row">
+                        <label><strong>No. of visitors:&nbsp;</strong></label>
+                        <h5>10 visitors</h5>
+                    </div>
+                </div>
+                <div class="row col-sm-7 pb-10">
+                    <div class="col row">
+                        <label><strong>Duration of stay:&nbsp;</strong></label>
+                        <h5>1 hour</h5>
+                    </div>
+                </div>
+                <div class="row col-sm-10">
+                    <label><strong>location:&nbsp;</strong></label>
+                    <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                </div>
+            </div>
+            <div class="float-right">
+                <div>
+                    <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Add to google calendar</a>
+                    <a asp-area="" asp-page="/" class="genric-btn primary-border circle">View booking</a>
+                    <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <a>Book another Session</a>
+    </div>
+    <br />
+    <br />
+
+</main>
