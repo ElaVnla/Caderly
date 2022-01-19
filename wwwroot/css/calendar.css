@@ -11743,7 +11743,7 @@ h1, h2, h3, h4, h5,
 }
 
     .table-date:not(.nil):hover {
-        border-color: #E69116;
+        border-color: #cd4dcc;
     }
 
 .event-date {
@@ -11764,12 +11764,12 @@ h1, h2, h3, h4, h5,
     }
 
 .active-date {
-    background: #E69116;
+    background: #cd4dcc;
     color: #fff;
 }
 
 .event-date.active-date {
-    background: #E69116;
+    background: #7e0cf5;
 }
 
 /* input dialog */

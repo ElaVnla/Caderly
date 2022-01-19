@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Caderly.Services;
+using Caderly.Models;
 
 namespace Caderly
 {
@@ -24,6 +26,9 @@ namespace Caderly
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddSession();
+            services.AddTransient<IBookingService,BookingService>();
+            services.AddDbContext<CaderlyDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +45,7 @@ namespace Caderly
                 app.UseHsts();
             }
 
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -50,6 +56,7 @@ namespace Caderly
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
