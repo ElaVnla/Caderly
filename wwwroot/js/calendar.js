@@ -2,11 +2,30 @@
 
     "use strict";
 
+    // Given data for events in JSON format
+    var event_data = {
+        "events": [
+            {
+                "booktype": 1,
+                "occasion": " Repeated Test Event ",
+                "invited_count": 120,
+                "year": 1970,
+                "month": 1,
+                "day": 20,
+                "stime": "1030",
+                "cancelled": true
+            },
+           ]
+    };
+
+   
     // Setup the calendar with the current date
     $(document).ready(function () {
         var date = new Date();
         var today = date.getDate();
-
+        var year = date.getFullYear();
+        //alert(event_data);
+        loadData(date);
         // Set click handlers for DOM elements
         $(".right-button").click({ date: date }, next_year);
         $(".left-button").click({ date: date }, prev_year);
@@ -18,6 +37,46 @@
         var events = check_events(today, date.getMonth() + 1, date.getFullYear());
         show_events(events, months[date.getMonth()], today);
     });
+
+    function loadData(date) {
+        //alert("Hello!");
+        $.getJSON('https://localhost:44362/api/Booking', function (data) {
+            // JSON result in `data` variable
+            var event_datax = JSON.parse(JSON.stringify(data));
+            alert(event_datax);
+
+            //var name = "ERIKA MOMENT!";
+            //var day = 20;
+            //var count = 100;
+            //new_event_json(name, count, date, day);
+            //date.setDate(day);
+            //init_calendar(date);
+            //alert(event_datax);
+            var jsonData = JSON.parse(event_datax);
+            //alert(jsonData);
+            //alert(jsonData.length);
+            for (var i = 0; i < jsonData.length; i++) {
+                var eventx = jsonData[i];
+                var year = eventx.year;
+                var month = eventx.month;
+                var booktype = eventx.booktype;
+                var name = eventx.occasion;
+                var day = eventx.day;
+                var stime = eventx.stime;
+                var count = eventx.invited_count;
+                var sdate = ' ' + year + '-' + month + '-' + day;
+                var date = new Date(sdate);
+                if (booktype == 1) {
+                    new_event_json(booktype, name, count, date, day, stime);
+                    var toDay = new Date();
+                    day = toDay.getDay();
+                    date.setDate(day);
+                    init_calendar(toDay);
+                }
+            }
+            //alert("Ok");
+        });
+    }
 
     // Initialize the calendar by appending the HTML dates
     function init_calendar(date) {
@@ -49,10 +108,10 @@
                 row.append(curr_date);
             }
             else {
-                var curr_date = $("<td class='table-date legendcolor'>" + day + "</td>");
+                var curr_date = $("<td class='table-date'>" + day + "</td>");
                 var events = check_events(day, month + 1, year);
                 if (today === day && $(".active-date").length === 0) {
-                    curr_date.addClass("active-date selectable");
+                    curr_date.addClass("active-date");
                     show_events(events, months[month], day);
                 }
                 // If this date has any events, style it with .event-date
@@ -144,6 +203,8 @@
             var name = $("#name").val().trim();
             var count = parseInt($("#count").val().trim());
             var day = parseInt($(".active-date").html());
+            var stime = "1000";
+            var booktype = 1;
             // Basic form validation
             if (name.length === 0) {
                 $("#name").addClass("error-input");
@@ -154,29 +215,32 @@
             else {
                 $("#dialog").hide(250);
                 console.log("new event");
-                new_event_json(name, count, date, day);
+                new_event_json(booktype,name, count, date, day,stime);
                 date.setDate(day);
                 init_calendar(date);
             }
         });
     }
 
+    function myFunc() {
+        alert("Hello!");
+    }
     // Adds a json event to event_data
-    function new_event_json(name, count, date, day) {
+    function new_event_json(booktype,name, count, date, day,stime) {
         var event = {
+            "booktype": booktype,
             "occasion": name,
             "invited_count": count,
             "year": date.getFullYear(),
             "month": date.getMonth() + 1,
-            "day": day
+            "day": day,
+            "stime":stime
         };
         event_data["events"].push(event);
     }
 
     // Display all events of the selected date in card views
     function show_events(events, month, day) {
-        // timing test data
-        var timinglist = ['10:00am', '10:30am', '11:00am', '11:30am', '12:00pm', '12:30pm', '01:00pm', '01:30pm']
         // Clear the dates container
         $(".events-container").empty();
         $(".events-container").show(250);
@@ -185,133 +249,105 @@
         if (events.length === 0) {
             var event_card = $("<div class='event-card'></div>");
             var event_name = $("<div class='event-name'>Select your timing for " + month + " " + day + ".</div> <br/><br/>");
-            var event_buttons = $("<div style='margin-left: 10px;'><div class='button-group-area'><a asp-area='' asp-page='/' class= 'genric-btn primary-border radius' style='margin-bottom:10px; margin-right:8px;'>10:00am</a ><a asp-area='' asp-page='/' class= 'genric-btn primary-border radius' style='margin-bottom:10px; margin-right:8px;'>10:30am</a ><a asp-area='' asp-page='/' class= 'genric-btn primary-border radius' style='margin-bottom:10px; margin-right:8px;'>11:00am</a ><a asp-area='' asp-page='/' class= 'genric-btn primary-border radius' style='margin-bottom:10px; margin-right:8px;'>11:30am</a ><a asp-area='' asp-page='/' class= 'genric-btn primary-border radius' style='margin-bottom:10px; margin-right:8px;'>12:00pm</a ><a asp-area='' asp-page='/' class= 'genric-btn primary-border radius' style='margin-bottom:10px; margin-right:8px;'>01:00pm</a ><a asp-area='' asp-page='/' class= 'genric-btn primary-border radius' style='margin-bottom:10px; margin-right:8px;'>01:30pm</a ><a asp-area='' asp-page='/' class= 'genric-btn primary-border radius' style='margin-bottom:10px; margin-right:8px;'>02:00pm</a ><a asp-area='' asp-page='/' class= 'genric-btn primary-border radius' style='margin-bottom:10px; margin-right:8px;'>02:30pm</a ></div ></div>")
+            var event_buttons = $("<div style='margin-left: 10px;'><div class='button-group-area' id='btngrpx'> " +
+                "<input type='button' value='10:00AM' onclick='setTiming(this.value,month,day)' id='but1000'  name='but1000' > " +
+                "<input type='button' value='10:30AM' onclick='setTiming(this.value,month,day)' id='but1030' name='but1030' > " +
+                "<input type='button' value='11:00AM' onclick='setTiming(this.value,month,day)' id='but1100' name='but1100' > " +
+                "<input type='button' value='11:30AM' onclick='setTiming(this.value,month,day)' id='but1130' name='but1130' > " +
+                "<input type='button' value='12:00PM' onclick='setTiming(this.value,month,day)' id='but1200' name='but1200' > " +
+                "<input type='button' value='12:30PM' onclick='setTiming(this.value,month,day)' id='but1230' name='but1230' > " +
+                 "</div ></div > ");
+         
             $(event_card).css({ "border-left": "10px solid #FF1744" });
             $(event_card).append(event_name);
             $(event_card).append(event_buttons);
             $(".events-container").append(event_card);
         }
         else {
-            // Go through and add each event as a card to the events container
+            //// Go through and add each event as a card to the events container
+            //for (var i = 0; i < events.length; i++) {
+            //    var event_card = $("<div class='event-card'></div>");
+            //    var event_name = $("<div class='event-name'>" + events[i]["occasion"] + ":</div>");
+            //    var event_count = $("<div class='event-count'>" + events[i]["invited_count"] + " Invited</div>");
+            //    if (events[i]["cancelled"] === true) {
+            //        $(event_card).css({
+            //            "border-left": "10px solid #FF1744"
+            //        });
+            //        event_count = $("<div class='event-cancelled'>Cancelled</div>");
+            //    }
+            //    $(event_card).append(event_name).append(event_count);
+            //    $(".events-container").append(event_card);
+            //}
+            //alert(events.length);
+            var strTimingSched = "<div style='margin-left: 10px;'><div class='button-group-area' id='btngrpx'>";
+            var s1000, s1030, s1100, s1130, s1200, s1230, s1300, s1330, s1400, s1430;
+            s1000 = 1;
+            s1030 = 1;
+            s1100 = 1;
+            s1130 = 1;
+            s1200 = 1;
+            s1230 = 1;
+            s1300 = 1;
+            s1330 = 1;
+            s1400 = 1;
+            s1430 = 1;
             for (var i = 0; i < events.length; i++) {
-                var event_card = $("<div class='event-card'></div>");
-                var event_name = $("<div class='event-name'>" + events[i]["occasion"] + ":</div>");
-                var event_count = $("<div class='event-count'>" + events[i]["invited_count"] + " Invited</div>");
-                if (events[i]["cancelled"] === true) {
-                    $(event_card).css({
-                        "border-left": "10px solid #FF1744"
-                    });
-                    event_count = $("<div class='event-cancelled'>Cancelled</div>");
-                }
-                $(event_card).append(event_name).append(event_count);
-                $(".events-container").append(event_card);
+                var dsTime = events[i].stime;
+                if (dsTime == "1000") s1000 = 0;
+                else if (dsTime == "1030") s1030 = 0;
+                else if (dsTime == "1100") s1100 = 0;
+                else if (dsTime == "1130") s1130 = 0;
+                else if (dsTime == "1200") s1200 = 0;
+                else if (dsTime == "1230") s1230 = 0;
+                else if (dsTime == "1300") s1300 = 0;
+                else if (dsTime == "1330") s1330 = 0;
+                else if (dsTime == "1400") s1400 = 0;
+                else if (dsTime == "1430") s1430 = 0;
             }
+            if (s1000 == 0) strTimingSched = strTimingSched + "<input type='button' value='10:00AM' onclick='setTiming(this.value)' id='but1000'  name='but1000' disabled> ";
+            else strTimingSched = strTimingSched + "<input type='button' value='10:00AM' onclick='setTiming(this.value)' id='but1000'  name='but1000' > ";
+            if (s1030 == 0) strTimingSched = strTimingSched + "<input type='button' value='10:30AM' onclick='setTiming(this.value)' id='but1030'  name='but1030' disabled> ";
+            else strTimingSched = strTimingSched + "<input type='button' value='10:30AM' onclick='setTiming(this.value)' id='but1030'  name='but1030' > ";
+            if (s1100 == 0) strTimingSched = strTimingSched + "<input type='button' value='11:00AM' onclick='setTiming(this.value)' id='but1100'  name='but1100' disabled> ";
+            else strTimingSched = strTimingSched + "<input type='button' value='11:00AM' onclick='setTiming(this.value)' id='but1100'  name='but1100' > ";
+            if (s1130 == 0) strTimingSched = strTimingSched + "<input type='button' value='11:30AM' onclick='setTiming(this.value)' id='but1130'  name='but1130' disabled> ";
+            else strTimingSched = strTimingSched + "<input type='button' value='11:30AM' onclick='setTiming(this.value)' id='but1130'  name='but1130' > ";
+            if (s1200 == 0) strTimingSched = strTimingSched + "<input type='button' value='12:00PM' onclick='setTiming(this.value)' id='but1200'  name='but1200' disabled> ";
+            else strTimingSched = strTimingSched + "<input type='button' value='12:00PM' onclick='setTiming(this.value)' id='but1200'  name='but1200' > ";
+            if (s1230 == 0) strTimingSched = strTimingSched + "<input type='button' value='12:30PM' onclick='setTiming(this.value)' id='but1230'  name='but1230' disabled> ";
+            else strTimingSched = strTimingSched + "<input type='button' value='12:30PM' onclick='setTiming(this.value)' id='but1230'  name='but1230' > ";
+            if (s1300 == 0) strTimingSched = strTimingSched + "<input type='button' value='01:00PM' onclick='setTiming(this.value)' id='but1300'  name='but1300' disabled> ";
+            else strTimingSched = strTimingSched + "<input type='button' value='01:00PM' onclick='setTiming(this.value)' id='but1300'  name='but1300' > ";
+
+
+            strTimingSched = strTimingSched + "</div ></div >";
+            
+            var event_card = $("<div class='event-card'></div>");
+            var event_name = $("<div class='event-name'>Select your timing for " + month + " " + day + ".</div> <br/><br/>");
+            var event_buttonsx = $(strTimingSched);
+
+            $(event_card).css({ "border-left": "10px solid #FF1744" });
+            $(event_card).append(event_name);
+            $(event_card).append(event_buttonsx);
+            $(".events-container").append(event_card);
         }
     }
 
     // Checks if a specific date has any events
-    function check_events(day, month, year) {
+    function check_events(day, month, year,stime) {
         var events = [];
         for (var i = 0; i < event_data["events"].length; i++) {
             var event = event_data["events"][i];
             if (event["day"] === day &&
                 event["month"] === month &&
-                event["year"] === year) {
+                event["year"] === year ) {
                 events.push(event);
             }
         }
         return events;
     }
 
-    // Given data for events in JSON format
-    var event_data = {
-        "events": [
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2020,
-                "month": 5,
-                "day": 10,
-                "cancelled": true
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2020,
-                "month": 5,
-                "day": 10,
-                "cancelled": true
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2020,
-                "month": 5,
-                "day": 10,
-                "cancelled": true
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2020,
-                "month": 5,
-                "day": 10
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2020,
-                "month": 5,
-                "day": 10,
-                "cancelled": true
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2020,
-                "month": 5,
-                "day": 10
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2020,
-                "month": 5,
-                "day": 10,
-                "cancelled": true
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2020,
-                "month": 5,
-                "day": 10
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2020,
-                "month": 5,
-                "day": 10,
-                "cancelled": true
-            },
-            {
-                "occasion": " Repeated Test Event ",
-                "invited_count": 120,
-                "year": 2020,
-                "month": 5,
-                "day": 10
-            },
-            {
-                "occasion": " Test Event",
-                "invited_count": 120,
-                "year": 2020,
-                "month": 5,
-                "day": 11
-            }
-        ]
-    };
-
+    
     const months = [
         "January",
         "February",
