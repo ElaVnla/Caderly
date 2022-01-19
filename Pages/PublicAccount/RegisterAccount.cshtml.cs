@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Caderly.Pages.lovedones
+namespace Caderly.Pages.PublicAccount
 {
-    public class lovedones_editbookingModel : PageModel
+    public class RegisterAccountModel : PageModel
     {
         public void OnGet()
         {

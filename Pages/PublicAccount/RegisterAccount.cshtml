@@ -1,0 +1,248 @@
+﻿@page
+@model Caderly.Pages.PublicAccount.RegisterAccountModel
+@{
+}
+<style>
+
+    .form-radio {
+        margin: 0 -10px;
+        margin-bottom: 40px;
+    }
+
+        .form-radio input {
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: -9999px;
+        }
+
+            .form-radio input + label {
+                margin: 0 8px;
+                padding: 11px 31px;
+                box-sizing: border-box;
+                position: relative;
+                display: inline-block;
+                border: solid 2px #ebebeb;
+                background-color: #FFF;
+                font-size: 14px;
+                font-weight: 600;
+                color: #888;
+                text-align: center;
+                transition: border-color .15s ease-out, color .25s ease-out, background-color .15s ease-out, box-shadow .15s ease-out;
+                border-radius: 5px;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+                -o-border-radius: 5px;
+                -ms-border-radius: 5px;
+            }
+
+            .form-radio input:checked + label {
+                background-color: #1da0f2;
+                color: #FFF;
+                border-color: #1da0f2;
+                z-index: 1;
+            }
+
+            .form-radio input:focus + label {
+                outline: none;
+            }
+
+            .form-radio input:hover {
+                background-color: #1da0f2;
+                color: #FFF;
+                border-color: #1da0f2;
+            }
+
+    input {
+        border: solid 2px #ebebeb;
+        box-sizing: border-box;
+        width: 100%;
+        font-weight: 700;
+        font-size: 14px;
+        font-family: Poppins;
+        padding: 16px 30px 16px 140px;
+    }
+
+    .form-textbox {
+        position: relative;
+    }
+
+        .form-textbox label {
+            position: absolute;
+            left: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            font-weight: 600;
+            color: #888;
+            font-size: 14px;
+        }
+
+    #name {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    #pass {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    #email {
+        border: none;
+        border-left: solid 2px #ebebeb;
+        border-right: solid 2px #ebebeb;
+    }
+
+    input[type=checkbox]:not(old) {
+        width: 2em;
+        margin: 0;
+        padding: 0;
+        font-size: 1em;
+        display: none;
+    }
+
+        input[type=checkbox]:not(old) + label {
+            display: inline-block;
+            margin-top: 27px;
+            margin-bottom: 45px;
+        }
+
+            input[type=checkbox]:not(old) + label > span {
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                margin-right: 15px;
+                margin-bottom: 5px;
+                border: 2px solid #ebebeb;
+                border-radius: 2px;
+                -moz-border-radius: 2px;
+                -webkit-border-radius: 2px;
+                -o-border-radius: 2px;
+                -ms-border-radius: 2px;
+                background: white;
+                background-image: -moz-linear-gradient(white, white);
+                background-image: -ms-linear-gradient(white, white);
+                background-image: -o-linear-gradient(white, white);
+                background-image: -webkit-linear-gradient(white, white);
+                background-image: linear-gradient(white, white);
+                vertical-align: bottom;
+            }
+
+        input[type=checkbox]:not(old):checked + label > span {
+            background-image: -moz-linear-gradient(white, white);
+            background-image: -ms-linear-gradient(white, white);
+            background-image: -o-linear-gradient(white, white);
+            background-image: -webkit-linear-gradient(white, white);
+            background-image: linear-gradient(white, white);
+        }
+
+            input[type=checkbox]:not(old):checked + label > span:before {
+                content: '\f26b';
+                display: block;
+                color: #222;
+                font-size: 11px;
+                line-height: 1.1;
+                text-align: center;
+                font-family: 'Material-Design-Iconic-Font';
+                font-weight: bold;
+            }
+
+    .label-agree-term {
+        color: #888;
+    }
+
+    .term-service {
+        color: #1da0f2;
+        text-decoration: none;
+    }
+
+        .term-service:hover {
+            text-decoration: underline;
+        }
+
+    .submit {
+        background: #1da0f2;
+        color: #FFF;
+        border: none;
+        padding: 15px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: Poppins;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -o-border-radius: 5px;
+        -ms-border-radius: 5px;
+    }
+
+        .submit:hover {
+            background: #0c85d0;
+        }
+
+    .sign-up-content {
+        padding: 40px 60px 32px 60px;
+        position: relative;
+        z-index: 99;
+    }
+</style>
+<br />
+<br />
+<br />
+<h1>Sign up</h1>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="sign-up-content">
+                <form method="POST" class="signup-form">
+                    <h2 class="form-title">What type of user are you ?</h2>
+                    <div class="form-radio">
+                        <input type="radio" name="member_level" value="newbie" id="newbie" checked="checked" />
+                        <label for="newbie">New bee</label>
+
+                        <input type="radio" name="member_level" value="average" id="average" />
+                        <label for="average">Average</label>
+
+                        <input type="radio" name="member_level" value="master" id="master" />
+                        <label for="master">Master</label>
+                    </div>
+
+                    <div class="form-textbox">
+                        <label for="name">Full name</label>
+                        <input type="text" name="name" id="name" />
+                    </div>
+
+                    <div class="form-textbox">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" />
+                    </div>
+
+                    <div class="form-textbox">
+                        <label for="pass">Password</label>
+                        <input type="password" name="pass" id="pass" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                        <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                    </div>
+
+                    <div class="form-textbox">
+                        <input type="submit" name="submit" id="submit" class="submit" value="Create account" />
+                    </div>
+                </form>
+
+                <p class="loginhere">
+                    Already have an account ?<a href="#" class="loginhere-link"> Log in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br />
+<br />
+<br />
