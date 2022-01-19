@@ -1,0 +1,398 @@
+﻿@page
+@model Caderly.Pages.lovedones_bookingModel
+@{
+    ViewData["Title"] = "Loved Ones Booking";
+}
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/css/calendar.css">
+
+</head>
+<style type='text/css'>
+    /* basic positioning */
+    .legend {
+        list-style: none;
+    }
+
+        .legend li {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .legend span {
+            border: 1px solid #ccc;
+            float: left;
+            width: 12px;
+            height: 12px;
+            margin: 2px;
+        }
+        /* your colors */
+        .legend .superawesome {
+            background-color: #C01E1E;
+        }
+
+        .legend .awesome {
+            background-color: #E2CE19;
+        }
+
+        .legend .kindaawesome {
+            background-color: #36C160;
+        }
+
+        .legend .notawesome {
+            background-color: #000000;
+        }
+</style>
+<main>
+    <br />
+    <br />
+    <div class="container">
+        <div class="row justify-content-sm-center">
+            <div class="cl-xl-7 col-lg-8 col-md-10">
+                <!-- Section Tittle -->
+                <div class="section-tittle text-center mb-70">
+                    <h1>Book an appointment</h1>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+    <div class="container">
+        <div class="col col-md-auto">
+            <div class="about-caption mb-50">
+                <!-- Section Tittle -->
+                <div class="section-tittle mb-35">
+                    <h4><strong>Select type of appointment</strong></h4>
+                </div>
+                <div class="button-group-area">
+                    <a class="genric-btn primary circle" id="butFace">face-to-face Visits</a>
+                    <a class="genric-btn primary-border circle" id="butVideo">Videocall Sessions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="ConfirmBooking">
+        <div class="container">
+            <div class="col col-md-auto">
+                <div class="about-caption mb-50">
+                    <!-- Section Tittle -->
+                    <div class="section-tittle mb-35">
+                        <h4><strong>Create your appointment</strong></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div>
+                    <ul class="legend">
+                        <li><span class="superawesome"></span>Fully Booked</li>
+                        <li><span class="awesome"></span>Semi-Full</li>
+                        <li><span class="kindaawesome"></span>Available</li>
+                        <li><span class="notawesome"></span>Close</li>
+                    </ul>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="container">
+                <div class="row">
+                    <div class="calendar-container">
+                        <div class="calendar">
+                            <div class="year-header">
+                                <span class="left-button fa fa-chevron-left" id="prev"> </span>
+                                <span class="year" id="label"></span>
+                                <span class="right-button fa fa-chevron-right" id="next"> </span>
+                            </div>
+                            <table class="months-table w-100">
+                                <tbody>
+                                    <tr class="months-row">
+                                        <td class="month">Jan</td>
+                                        <td class="month">Feb</td>
+                                        <td class="month">Mar</td>
+                                        <td class="month">Apr</td>
+                                        <td class="month">May</td>
+                                        <td class="month">Jun</td>
+                                        <td class="month">Jul</td>
+                                        <td class="month">Aug</td>
+                                        <td class="month">Sep</td>
+                                        <td class="month">Oct</td>
+                                        <td class="month">Nov</td>
+                                        <td class="month">Dec</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="days-table w-100">
+                                <td class="day">Sun</td>
+                                <td class="day">Mon</td>
+                                <td class="day">Tue</td>
+                                <td class="day">Wed</td>
+                                <td class="day">Thu</td>
+                                <td class="day">Fri</td>
+                                <td class="day">Sat</td>
+                            </table>
+                            <div class="frame">
+                                <table class="dates-table w-100">
+                                    <tbody class="tbody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="TimingSched" class="events-container">
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+        <div id="f2f">
+            <div class="container">
+                <div class="col col-lg-auto">
+                    <div class="about-caption mb-50">
+                        <div class="form-group row">
+                            <h6 class="col-sm-2 col-form-label"><strong>Title of booking</strong></h6>
+                            <div class="col-sm-6">
+                                <input class="form-control valid" id="txtTitle" name="txtTitle" type="text" placeholder="Title of booking">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-2 col-form-label">
+                                <h6><strong>Number of visitors</strong></h6>
+                                <label style="font-size:10px;">Due to Covid-19 restrictions, Groups are limited to 5 only</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <input class="form-control valid" name="txtNumber" id="txtNumber" type="text" placeholder="No. of Visitors">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-2 col-form-label">
+                                <h6><strong>Duration of visits</strong></h6>
+                                <label style="font-size:10px;">Visitation closes at 6pm.</label>
+                                <label style="font-size:10px;">Visitors are allowed to leave earlier than their allocaed duration of stay.</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <select id="txtDuration" name="txtDuration" onchange="changeSelectValue()">
+                                    <option selected value="15 mins">15 mins</option>
+                                    <option value="20 mins">20 mins</option>
+                                    <option value="30 mins">30 mins</option>
+                                    <option value="40 mins">45 mins</option>
+                                    <option value="1 hour">1 hour</option>
+
+                                </select>
+                            </div>
+                            <div class="col-sm-2" style="visibility:hidden;">
+                                <input class="form-control valid" name="txtTiming" id="txtTiming" type="text" placeholder="Schedule Timing" />
+                            </div>
+                            <!-- Section Tittle -->
+                            <div class="section-tittle mb-35 mr-50" style="visibility:hidden;">
+                                <h6><strong>Number of visitors</strong></h6>
+                                <input class="form-control valid" name="txtNumber" id="txtNumber" type="text" placeholder="No. of Visitors">
+                            </div>
+                            <div class="col-sm-2" style="visibility:hidden;">
+                                <input class="form-control valid" name="txtYear" id="txtYear" type="text" placeholder="Year" />
+                            </div>
+                            <div class="col-sm-2" style="visibility:hidden;">
+                                <input class="form-control valid" name="txtMonth" id="txtMonth" type="text" placeholder="Month" />
+                            </div>
+                            <div class="col-sm-2" style="visibility:hidden;">
+                                <input class="form-control valid" name="txtDay" id="txtDay" type="text" placeholder="Day" />
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary genric-btn primary circle float-right" data-toggle="modal" data-target="#exampleModalCenter">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="container">
+                <div class="col col-lg-auto">
+                    <div class="about-caption mb-50">
+                        <div class="col">-->
+            <!-- Section Tittle -->
+            <!--<div class="row float-left">
+                <div class="section-tittle mb-35 mr-50">
+                    <h6><strong>Title of booking</strong></h6>
+                    <input class="form-control valid" id="txtTitle" name="txtTitle" type="text" placeholder="Title of booking">
+                </div>
+                <div class="section-tittle mb-35 mr-50">
+                    <h6><strong>Duration of visit</strong></h6>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <input class="form-control valid" name="txtTiming" id="txtTiming" type="text" placeholder="Schedule Timing" />
+                        </div>
+                        <div class="col-sm-2">
+                            <select id="txtDuration" name="txtDuration" onchange="changeSelectValue()">
+                                <option selected value="15 mins">15 mins</option>
+                                <option value="20 mins">20 mins</option>
+                                <option value="30 mins">30 mins</option>
+                                <option value="40 mins">45 mins</option>
+                                <option value="1 hour">1 hour</option>
+
+                            </select>
+                        </div>-->
+            <!-- Section Tittle -->
+            <!--<div class="section-tittle mb-35 mr-50" style="visibility:hidden;">
+                                            <h6><strong>Number of visitors</strong></h6>
+                                            <input class="form-control valid" name="txtNumber" id="txtNumber" type="text" placeholder="No. of Visitors">
+                                        </div>
+                                        <div class="col-sm-2" style="visibility:hidden;">
+                                            <input class="form-control valid" name="txtYear" id="txtYear" type="text" placeholder="Year" />
+                                        </div>
+                                        <div class="col-sm-2" style="visibility:hidden;">
+                                            <input class="form-control valid" name="txtMonth" id="txtMonth" type="text" placeholder="Month" />
+                                        </div>
+                                        <div class="col-sm-2" style="visibility:hidden;">
+                                            <input class="form-control valid" name="txtDay" id="txtDay" type="text" placeholder="Day" />
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Confirm your booking</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="float-left col-sm-5 d-flex justify-content-center border-right">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong><span id="spanDayx" name="spanDayx">12</span></strong></h1></center></li>
+                                    <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong><span id="spanMonthx" name="spanMonthx">January</span></strong></h1></li>
+                                    <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong><span id="spanYearx" nae="spanYearx">2022</span>&nbsp;&nbsp;&nbsp;<span id="spanTiming" name="spanTiming">08:00AM</span></strong></h6></li>
+                                </ul>
+                            </div>
+                            <div class="float-right col-sm-7 pl-5">
+                                <div class="row pb-10 d-inline-block">
+                                    <label><strong>Type of Booking</strong></label>
+                                    <h5><strong><span id="spanType" name="spanType">Face To Face</span></strong></h5>
+                                    <label><strong>Title of booking:</strong></label>
+                                    <h5><strong><span id="spanTitle" name="spanTitle">Visit Grandma</span></strong></h5>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label><strong>No. of visitors</strong></label>
+                                            <h5><span id="spanNoVisitors" name="spanNoVisitors">1</span> visitors</h5>
+                                        </div>
+                                        <div class="col">
+                                            <label><strong>Duration of stay</strong></label>
+                                            <h5><span id="spanDuration" name="spanDuration">08:00AM</span></h5>
+                                        </div>
+                                    </div>
+                                    <label><strong>location</strong></label>
+                                    <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Confirm booking</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+    </form>
+</main>
+
+
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/popper.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/calendar1.js"></script>
+<script>
+    document.getElementById("butVideo").addEventListener("click", displaybutVideo);
+    document.getElementById("butFace").addEventListener("click", displaybutFace);
+
+    document.getElementById("txtDuration").addEventListener("click", changeSelectValue);
+
+    const source = document.getElementById('txtNumber');
+    const result = document.getElementById('spanNoVisitors');
+
+    const inputHandler = function (e) {
+        result.innerHTML = e.target.value;
+    }
+
+    source.addEventListener('input', inputHandler);
+    source.addEventListener('propertychange', inputHandler);
+    const source2 = document.getElementById('txtTitle');
+    const result2 = document.getElementById('spanTitle');
+
+    const inputHandler2 = function (e) {
+        result2.innerHTML = e.target.value;
+    }
+    source2.addEventListener('input', inputHandler2);
+    source2.addEventListener('propertychange', inputHandler2);
+
+
+
+
+
+    function displaybutVideo() {
+        //document.getElementById("butVideo").classList.remove('primary-border');
+        //document.getElementById("butVideo").classList.add('primary');
+        //document.getElementById("butFace").classList.remove('primary');
+        //document.getElementById("butFace").classList.add('primary-border');
+        //document.getElementById("spanType").innerText = "Video Call";
+        window.location.replace("loveones_booking2");
+
+    }
+    function displaybutFace() {
+        //document.getElementById("butFace").classList.remove('primary-border');
+        //document.getElementById("butFace").classList.add('primary');
+        //document.getElementById("butVideo").classList.remove('primary');
+        //document.getElementById("butVideo").classList.add('primary-border');
+        //document.getElementById("spanType").innerText = "Face to Face";
+        window.location.replace("lovedones_booking");
+    }
+    function setTiming(sTime, sDay, sYear, sMnth) {
+        var arMonth = [
+            "January", "February", "March", "Apr", "May", "June",
+            "July", "August", "September", "October", "November", "Decemenber"
+        ];
+
+        var smonth = " ";
+        sMnth = sMnth - 1;
+        smonth = arMonth[sMnth];
+        alert(sTime + ' ' + sDay + ' ' + sYear + ' ' + smonth);
+
+        document.getElementById("txtTiming").value = sTime;
+        document.getElementById("txtYear").value = sYear;
+        document.getElementById("txtMonth").value = sMnth + 1;
+        document.getElementById("txtDay").value = sDay;
+        document.getElementById("spanTiming").innerText = sTime;
+        document.getElementById("spanDayx").innerText = sDay;
+        document.getElementById("spanYearx").innerText = sYear;
+        document.getElementById("spanMonthx").innerText = smonth;
+        document.getElementById("spanNoVisitors").innerText = document.getElementById("txtNumber").value;
+        document.getElementById("spanTitle").innerText = document.getElementById("txtTitle").value;
+
+    }
+
+    function changeSelectValue() {
+        var test = document.getElementById("txtDuration").value;
+        document.getElementById("spanDuration").innerText = test;
+    }
+
+
+
+
+</script>
+

@@ -1,0 +1,496 @@
+﻿@page
+@model Caderly.Pages.lovedones.lovedones_schedulesModel
+@{
+}
+<head>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<style>
+    .nav-link {
+        color: black;
+    }
+
+        .nav-link:hover {
+            color: goldenrod;
+        }
+</style>
+<br />
+<br />
+<br />
+<div class="container">
+    <div class="row justify-content-sm-center">
+        <div class="cl-xl-7 col-lg-8 col-md-10">
+            <!-- Section Tittle -->
+            <br />
+            <div class="section-tittle text-center mb-70">
+                <h1>My Schedules</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-3 tab-card">
+                <div class="card-header tab-card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Ongoing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">History</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">My Calendar</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+                        <div style="overflow-y:scroll; max-height:400px;">
+                            <div class="card w-100 mb-30 mr-10 shadow">
+                                <div class="card-body">
+                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>12</strong></h1></center></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>January</strong></h1></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>2022 10:00am</strong></h6></li>
+                                        </ul>
+                                    </div>
+                                    <div class="float-right col-sm-9 pl-5">
+                                        <div class="row col-sm-10 pb-10">
+                                            <label><strong>Title of booking:&nbsp;</strong></label>
+                                            <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                <h5>10 visitors</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                <h5>1 hour</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-10">
+                                            <label><strong>location:&nbsp;</strong></label>
+                                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                        </div>
+                                    </div>
+                                    <div class="float-right">
+                                        <div>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Edit Booking</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Add to google calendar</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card w-100 mb-30 shadow">
+                                <div class="card-body">
+                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>12</strong></h1></center></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>January</strong></h1></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>2022 10:00am</strong></h6></li>
+                                        </ul>
+                                    </div>
+                                    <div class="float-right col-sm-9 pl-5">
+                                        <div class="row col-sm-10 pb-10">
+                                            <label><strong>Title of booking:&nbsp;</strong></label>
+                                            <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                <h5>10 visitors</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                <h5>1 hour</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-10">
+                                            <label><strong>location:&nbsp;</strong></label>
+                                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                        </div>
+                                    </div>
+                                    <div class="float-right">
+                                        <div>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Edit Booking</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Add to google calendar</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card w-100 mb-30 shadow">
+                                <div class="card-body">
+                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>12</strong></h1></center></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>January</strong></h1></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>2022 10:00am</strong></h6></li>
+                                        </ul>
+                                    </div>
+                                    <div class="float-right col-sm-9 pl-5">
+                                        <div class="row col-sm-10 pb-10">
+                                            <label><strong>Title of booking:&nbsp;</strong></label>
+                                            <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                <h5>10 visitors</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                <h5>1 hour</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-10">
+                                            <label><strong>location:&nbsp;</strong></label>
+                                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                        </div>
+                                    </div>
+                                    <div class="float-right">
+                                        <div>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Edit Booking</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Add to google calendar</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
+                        <div style="overflow-y:scroll; max-height:400px;">
+                            <div class="card w-100 mb-30 shadow">
+                                <div class="card-body">
+                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>12</strong></h1></center></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>January</strong></h1></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>2022 10:00am</strong></h6></li>
+                                        </ul>
+                                    </div>
+                                    <div class="float-right col-sm-9 pl-5">
+                                        <div class="row col-sm-10 pb-10">
+                                            <label><strong>Title of booking:&nbsp;</strong></label>
+                                            <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                <h5>10 visitors</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                <h5>1 hour</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-10">
+                                            <label><strong>location:&nbsp;</strong></label>
+                                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                        </div>
+                                    </div>
+                                    <div class="float-right">
+                                        <div>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Edit Booking</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Add to google calendar</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card w-100 mb-30 shadow">
+                                <div class="card-body">
+                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>12</strong></h1></center></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>January</strong></h1></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>2022 10:00am</strong></h6></li>
+                                        </ul>
+                                    </div>
+                                    <div class="float-right col-sm-9 pl-5">
+                                        <div class="row col-sm-10 pb-10">
+                                            <label><strong>Title of booking:&nbsp;</strong></label>
+                                            <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                <h5>10 visitors</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                <h5>1 hour</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-10">
+                                            <label><strong>location:&nbsp;</strong></label>
+                                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                        </div>
+                                    </div>
+                                    <div class="float-right">
+                                        <div>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Book again</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card w-100 mb-30 shadow">
+                                <div class="card-body">
+                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>12</strong></h1></center></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>January</strong></h1></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>2022 10:00am</strong></h6></li>
+                                        </ul>
+                                    </div>
+                                    <div class="float-right col-sm-9 pl-5">
+                                        <div class="row col-sm-10 pb-10">
+                                            <label><strong>Title of booking:&nbsp;</strong></label>
+                                            <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                <h5>10 visitors</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                <h5>1 hour</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-10">
+                                            <label><strong>location:&nbsp;</strong></label>
+                                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                        </div>
+                                    </div>
+                                    <div class="float-right">
+                                        <div>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Edit Booking</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Add to google calendar</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card w-100 mb-30 shadow">
+                                <div class="card-body">
+                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>12</strong></h1></center></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>January</strong></h1></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>2022 10:00am</strong></h6></li>
+                                        </ul>
+                                    </div>
+                                    <div class="float-right col-sm-9 pl-5">
+                                        <div class="row col-sm-10 pb-10">
+                                            <label><strong>Title of booking:&nbsp;</strong></label>
+                                            <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                <h5>10 visitors</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                <h5>1 hour</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-10">
+                                            <label><strong>location:&nbsp;</strong></label>
+                                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                        </div>
+                                    </div>
+                                    <div class="float-right">
+                                        <div>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Edit Booking</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Add to google calendar</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card w-100 mb-30 shadow">
+                                <div class="card-body">
+                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>12</strong></h1></center></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>January</strong></h1></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>2022 10:00am</strong></h6></li>
+                                        </ul>
+                                    </div>
+                                    <div class="float-right col-sm-9 pl-5">
+                                        <div class="row col-sm-10 pb-10">
+                                            <label><strong>Title of booking:&nbsp;</strong></label>
+                                            <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                <h5>10 visitors</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                <h5>1 hour</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-10">
+                                            <label><strong>location:&nbsp;</strong></label>
+                                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                        </div>
+                                    </div>
+                                    <div class="float-right">
+                                        <div>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Edit Booking</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Add to google calendar</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card w-100 mb-30 shadow">
+                                <div class="card-body">
+                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>12</strong></h1></center></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>January</strong></h1></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>2022 10:00am</strong></h6></li>
+                                        </ul>
+                                    </div>
+                                    <div class="float-right col-sm-9 pl-5">
+                                        <div class="row col-sm-10 pb-10">
+                                            <label><strong>Title of booking:&nbsp;</strong></label>
+                                            <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                <h5>10 visitors</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                <h5>1 hour</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-10">
+                                            <label><strong>location:&nbsp;</strong></label>
+                                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                        </div>
+                                    </div>
+                                    <div class="float-right">
+                                        <div>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Edit Booking</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Add to google calendar</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card w-100 mb-30 shadow">
+                                <div class="card-body">
+                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>12</strong></h1></center></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>January</strong></h1></li>
+                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>2022 10:00am</strong></h6></li>
+                                        </ul>
+                                    </div>
+                                    <div class="float-right col-sm-9 pl-5">
+                                        <div class="row col-sm-10 pb-10">
+                                            <label><strong>Title of booking:&nbsp;</strong></label>
+                                            <h5><strong></strong>Face-to-face visit with my grandma</h5>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                <h5>10 visitors</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-7 pb-10">
+                                            <div class="col row">
+                                                <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                <h5>1 hour</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-10">
+                                            <label><strong>location:&nbsp;</strong></label>
+                                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                        </div>
+                                    </div>
+                                    <div class="float-right">
+                                        <div>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Edit Booking</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Add to google calendar</a>
+                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
+                        <div style="">
+                            <div>
+                                <h5 class="card-title">Tab Card One</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                            <div>
+                                <h5 class="card-title">Tab Card One</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                            <div>
+                                <h5 class="card-title">Tab Card One</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                            <div>
+                                <h5 class="card-title">Tab Card One</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                            <div>
+                                <h5 class="card-title">Tab Card One</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
