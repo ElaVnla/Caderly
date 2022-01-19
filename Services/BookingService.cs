@@ -3,7 +3,7 @@ using Caderly.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace Caderly.Services
 {
@@ -12,6 +12,9 @@ namespace Caderly.Services
         string JSONBookList();
         string JSONBookListDB();
         bool BookListDBAdd(BookInfo bookInfo);
+        List<BookInfo> BookListDB();
+        BookInfo BookListGetInfoDB(string bookId);
+        bool BookListDBUpdate(BookInfo bookInfo);
     }
     public class BookingService : IBookingService
     {
@@ -20,13 +23,13 @@ namespace Caderly.Services
         {
             _context = context;
         }
-     
+
         public string JSONBookList()
         {
             List<BookInfo> bookInfos = new List<BookInfo>();
 
             BookInfo bookInfo = new BookInfo();
-            bookInfo.booktype= 1;
+            bookInfo.booktype = 1;
             bookInfo.booktitle = "Testing Event1";
             bookInfo.bookvisitors = 10;
             bookInfo.bookyear = 2022;
@@ -77,7 +80,7 @@ namespace Caderly.Services
 
 
             var options = new JsonSerializerOptions { WriteIndented = true };
-            string JSONData = JsonSerializer.Serialize(bookInfos,options);
+            string JSONData = JsonSerializer.Serialize(bookInfos, options);
             return JSONData;
         }
 
@@ -85,7 +88,7 @@ namespace Caderly.Services
         {
             List<BookInfo> bookInfos = new List<BookInfo>();
 
-            bookInfos = GetAllBookInfo();          
+            bookInfos = GetAllBookInfo();
 
             var options = new JsonSerializerOptions { WriteIndented = true };
             string JSONData = JsonSerializer.Serialize(bookInfos, options);
@@ -103,15 +106,66 @@ namespace Caderly.Services
             AddBookInfo(bookInfo);
             return true;
         }
+        public List<BookInfo> BookListDB()
+        {
+            List<BookInfo> bookInfos = new List<BookInfo>();
+            bookInfos = GetAllBookInfo();
+            return bookInfos;
+        }
         public bool AddBookInfo(BookInfo newbookinfo)
         {
-           // if (EmployeeExists(newemployee.Id))
-           // {
-           //     return false;
-           // }
+            // if (EmployeeExists(newemployee.Id))
+            // {
+            //     return false;
+            // }
             _context.Add(newbookinfo);
             _context.SaveChanges();
             return true;
         }
+        private bool BookInfoExists(string bookId)
+        {
+            return _context.BookInfo.Any(e => e.bookId == bookId);
+        }
+        public BookInfo BookListGetInfoDB(string bookId)
+        {
+            return GetBookInfoById(bookId);
+        }
+        public BookInfo GetBookInfoById(string bookId)
+        {
+            BookInfo bookInfo = _context.BookInfo.Where(e => e.bookId == bookId).FirstOrDefault();
+            return bookInfo;
+        }
+        public bool BookListDBUpdate(BookInfo bookInfo)
+        {
+            return UpdateBookInfo(bookInfo);
+
+        }
+        public bool UpdateBookInfo(BookInfo bookInfo)
+        {
+            bool updated = true;
+            _context.Attach(bookInfo).State = EntityState.Modified;
+
+            try
+            {
+                _context.SaveChanges();
+                updated = true;
+
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BookInfoExists(bookInfo.bookId))
+                {
+                    updated = false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return updated;
+
+
+        }
+
     }
 }
