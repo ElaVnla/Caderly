@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Caderly.Pages
+namespace Caderly.Pages.lovedones
 {
     public class lovedones_schedulesModel : PageModel
     {
