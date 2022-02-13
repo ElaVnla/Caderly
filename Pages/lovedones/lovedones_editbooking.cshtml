@@ -1,0 +1,161 @@
+﻿@page
+@model Caderly.Pages.lovedones.lovedones_editbookingModel
+@{
+}
+
+<br />
+<br />
+
+<div class="container">
+    <div class="row justify-content-sm-center">
+        <div class="cl-xl-7 col-lg-8 col-md-10">
+            <!-- Section Tittle -->
+            <div class="section-tittle text-center mb-70">
+                <h1>Edit your booking</h1>
+            </div>
+        </div>
+    </div>
+    <br />
+</div>
+<form method="post">
+    <div class="container">
+        <div class="row justify-content-sm-center-content-sm-center">
+            <div class="card w-100 mb-30 mr-10 shadow">
+                <div class="card-body">
+                    <div style="visibility:hidden;">
+                        <input type="text" id="txtBookId" name="txtBookId" value="@Model.bookInfo.bookId" />
+                    </div>
+                    <div class="" style="visibility: hidden;">
+                        <h2>@Model.bookInfo.bookmonth</h2>
+                    </div>
+                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>@Model.bookInfo.bookday</strong></h1></center></li>
+                            @{
+
+                                string[] strMonth = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+                                string monthstr = strMonth[(Model.bookInfo.bookmonth) - 1];
+                            }
+                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>@monthstr</strong></h1></li>
+
+
+
+                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>@Model.bookInfo.bookyear &nbsp; &nbsp; @Model.bookInfo.booktime</strong></h6></li>
+                        </ul>
+                    </div>
+
+                    <div class="float-right col-sm-9 pl-5">
+                        @if (Model.bookInfo.booktype == 1)
+                        {
+                            <div class="row col-sm-10 pb-10">
+                                <label><strong>Title of booking:&nbsp;</strong></label>
+                                <h5><input type="text" id="txtTitle" name="txtTitle" value="@Model.bookInfo.booktitle" /></h5>
+
+                            </div>
+                            <div class="row col-sm-7 pb-10">
+                                <div class="col row">
+                                    <label><strong>No. of visitors:&nbsp;</strong></label>
+                                    <h5><input type="text" id="txtNumber" name="txtNumber" value="@Model.bookInfo.bookvisitors" /> &nbsp;visitors</h5>
+                                </div>
+                            </div>
+                            <div class="row col-sm-7 pb-10">
+                                <div class="col row">
+                                    <label><strong>Duration of stay:&nbsp;</strong></label>
+                                    @*<h5><input type="text" id="txtDuration" name="txtDuration" value="@Model.bookInfo.bookduration" /> &nbsp;mins</h5>*@
+                                    <select id="txtDuration" name="txtDuration" value="@Model.bookInfo.bookduration">
+
+                                        @if (Model.bookInfo.bookduration == "15 mins")
+                                        {
+                                            <option selected value="15 mins">15 mins</option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value="15 mins">15 mins</option>
+
+                                        }
+                                        @if (Model.bookInfo.bookduration == "20 mins")
+                                        {
+                                            <option selected value="20 mins">20 mins</option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value="20 mins">20 mins</option>
+
+                                        }
+                                        @if (Model.bookInfo.bookduration == "30 mins")
+                                        {
+                                            <option selected value="30 mins">30 mins</option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value="30 mins">30 mins</option>
+
+                                        }
+                                        @if (Model.bookInfo.bookduration == "45 mins")
+                                        {
+                                            <option selected value="45 mins">45 mins</option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value="45 mins">45 mins</option>
+
+                                        }
+                                        @if (Model.bookInfo.bookduration == "1 hour")
+                                        {
+                                            <option selected value="1 hour">1 hour</option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value="1 hour">1 hour</option>
+
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row col-sm-10">
+                                <label><strong>location:&nbsp;</strong></label>
+                                <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row col-sm-10 pb-10">
+                                <label><strong>Title of booking:&nbsp;</strong></label>
+                                <h5><input type="text" id="txtTitle" name="txtTitle" value="@Model.bookInfo.booktitle" /></h5>
+                            </div>
+                            <div class="row col-sm-7 pb-10">
+                                <div class="col row">
+                                    <label><strong>Duration of Call:&nbsp;</strong></label>
+                                    <h5><input type="text" id="txtDuration" name="txtDuration" value="@Model.bookInfo.bookduration" /> &nbsp;mins</h5>
+                                </div>
+                            </div>
+                            <div class="row col-sm-10">
+                                <label><strong>Platform:&nbsp;</strong></label>
+                                <h5>Via Zoom</h5>
+                            </div>
+                            <h5 style="visibility:hidden;"><input type="text" id="txtNumber" name="txtNumber" value="@Model.bookInfo.bookvisitors" /> &nbsp;visitors</h5>
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="float-right">
+            <div>
+                <button type="submit" class="genric-btn primary-border circle">Confirm Changes</button>
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<br />
+<br />
+<br />
+<br />

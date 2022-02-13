@@ -1,6 +1,8 @@
 ﻿@page
 @model Caderly.Pages.lovedones.loveones_booking2Model
 @{
+    ViewData["Title"] = "Loved Ones Booking";
+
 }
 
 <head>
@@ -355,7 +357,7 @@
         var smonth = " ";
         sMnth = sMnth - 1;
         smonth = arMonth[sMnth];
-        alert(sTime + ' ' + sDay + ' ' + sYear + ' ' + smonth);
+        //alert(sTime + ' ' + sDay + ' ' + sYear + ' ' + smonth);
 
         document.getElementById("txtTiming").value = sTime;
         document.getElementById("txtYear").value = sYear;

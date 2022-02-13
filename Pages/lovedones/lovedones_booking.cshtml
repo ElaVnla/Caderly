@@ -190,7 +190,7 @@
                             <!-- Section Tittle -->
                             <div class="section-tittle mb-35 mr-50" style="visibility:hidden;">
                                 <h6><strong>Number of visitors</strong></h6>
-                                <input class="form-control valid" name="txtNumber" id="txtNumber" type="text" placeholder="No. of Visitors">
+                                <input class="form-control valid" name="txtNumber" id="txtNumber" type="number" max="5" placeholder="No. of Visitors">
                             </div>
                             <div class="col-sm-2" style="visibility:hidden;">
                                 <input class="form-control valid" name="txtYear" id="txtYear" type="text" placeholder="Year" />
@@ -371,7 +371,7 @@
         var smonth = " ";
         sMnth = sMnth - 1;
         smonth = arMonth[sMnth];
-        alert(sTime + ' ' + sDay + ' ' + sYear + ' ' + smonth);
+        //alert(sTime + ' ' + sDay + ' ' + sYear + ' ' + smonth);
 
         document.getElementById("txtTiming").value = sTime;
         document.getElementById("txtYear").value = sYear;

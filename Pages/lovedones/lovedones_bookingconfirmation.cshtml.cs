@@ -35,6 +35,8 @@ namespace Caderly.Pages
             bookInfo.booktime = HttpContext.Session.GetString("SesBookTime");
             bookInfo.bookstatus = HttpContext.Session.GetString("SesBookStatus");
             bookInfo.bookduration = HttpContext.Session.GetString("SesBookDuration");
+            bookInfo.bookdate = Convert.ToDateTime(HttpContext.Session.GetString("sesBookDate"));
+
             if (bookInfo.booktype == 1)
             {
                 ViewData["BookType"] = "Face to Face";

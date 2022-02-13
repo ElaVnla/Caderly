@@ -14,54 +14,44 @@ using MimeKit.Text;
 
 namespace Caderly.Pages.lovedones
 {
-    public class lovedones_schedulesModel : PageModel
+    public class lovedones_editbookingModel : PageModel
     {
         [BindProperty]
-        public List<BookInfo> BookInfoList { get; set; }
 
+        public BookInfo bookInfo { get; set; }
 
         private readonly IBookingService _svc;
 
-        public lovedones_schedulesModel(IBookingService service)
+        string bookId;
+
+        public lovedones_editbookingModel(IBookingService service)
         {
             _svc = service;
         }
-
         public void OnGet()
         {
-            _svc.doSetMissed();
-            BookInfoList = getBookListDB();
 
-            //ViewData["BookInfoList"] = BookInfoList;
-
-            //  will put the code in saving the record.
-
-        }
-        public List<BookInfo> getBookListDB()
-        {
-            List<BookInfo> bookInfos = new List<BookInfo>();
-
-            bookInfos = _svc.BookListDB();
-
-            return bookInfos;
+            bookId = HttpContext.Request.Query["bookId"];
+            bookInfo = _svc.BookListGetInfoDB(bookId);
         }
         public void OnPost()
         {
-
-            doCancel();
-
+            bookId = HttpContext.Request.Query["bookId"];
+            bookInfo = _svc.BookListGetInfoDB(bookId);
+            doUpdateRecord();
         }
-        public void doCancel()
+        public void doUpdateRecord()
         {
-            string bookId = Request.Form["txtBookId"].ToString();
-            BookInfo bookInfo = _svc.BookListGetInfoDB(bookId);
-            bookInfo.bookstatus = "Cancelled";
+            var bkid = Request.Form["txtBookId"].ToString();
+            BookInfo bookInfox = _svc.BookListGetInfoDB(bkid);
+            bookInfox.bookvisitors = Convert.ToInt16(Request.Form["txtNumber"].ToString());
+            bookInfox.booktitle = Request.Form["txtTitle"].ToString();
+            bookInfox.bookduration = Request.Form["txtDuration"].ToString();
 
-            if (_svc.BookListDBUpdate(bookInfo))
+
+            if (_svc.BookListDBUpdate(bookInfox))
             {
-
-                // send email
-                doSendEmailHTML(bookInfo);
+                doSendEmailHTML(bookInfox);
                 Response.Redirect("lovedones_schedules");
             }
             else
@@ -76,10 +66,10 @@ namespace Caderly.Pages.lovedones
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse("caderlytest@gmail.com"));
             email.To.Add(MailboxAddress.Parse("erika.sampang.c@gmail.com"));
-            email.Subject = "Cancelled booking Successful";
+            email.Subject = "Booking has been Updated.";
             if (bookInfo.booktype == 1)
             {
-                email.Body = new TextPart(TextFormat.Html) { Text = "You have successfully Cancelled the following booking:<br/> " + @"
+                email.Body = new TextPart(TextFormat.Html) { Text = "Your booking has been Updated:<br/> " + @"
                     <label><strong>Day and time:&nbsp;</strong></label>
                                 <h5>" + bookInfo.bookday + "&nbsp;" + bookInfo.booktime + @" &nbsp; visitors</h5></br>
                         <label><strong>Month of booking:&nbsp;</strong></label>
@@ -95,13 +85,11 @@ namespace Caderly.Pages.lovedones
                                 <h5>" + bookInfo.bookduration + @"</h5><br/>
                             </div>
                         <label><strong>location:&nbsp;</strong></label>
-                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>
-                                        
-   " };
+                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>" };
             }
             else
             {
-                email.Body = new TextPart(TextFormat.Html) { Text = "You have successfully Cancelled the following booking:<br/> " + @"
+                email.Body = new TextPart(TextFormat.Html) { Text = "Your booking has been Updated:<br/> " + @"
                     <label><strong>Day and time:&nbsp;</strong></label>
                                 <h5>" + bookInfo.bookday + "&nbsp;" + bookInfo.booktime + @" &nbsp; visitors</h5></br>
                         <label><strong>Month of booking:&nbsp;</strong></label>
@@ -117,8 +105,7 @@ namespace Caderly.Pages.lovedones
                                 <h5>" + bookInfo.bookduration + @"</h5><br/>
                             </div>
                         <label><strong>Platform:&nbsp;</strong></label>
-                            <h5>Via zoom</h5>                    
-   " };
+                            <h5>Via zoom</h5>" };
             }
 
 
@@ -128,12 +115,6 @@ namespace Caderly.Pages.lovedones
             smtp.Authenticate("caderlytest@gmail.com", "x56msVOYnUSv0fzd");
             smtp.Send(email);
             smtp.Disconnect(true);
-            Response.Redirect("EmailReceived");
         }
-        private void OnPostdoEdit()
-        {
-            Response.Redirect("https://www.vicom.com.sg");
-        }
-
     }
 }

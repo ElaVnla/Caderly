@@ -14,7 +14,7 @@
                 "bookday": 20,
                 "booktime": "1030",
                 "bookstatus": "OnGoing",
-                "bookduration" : "15mins"
+                "bookduration": "15mins"
             },
         ]
     };
@@ -25,6 +25,7 @@
         var date = new Date();
         var today = date.getDate();
         //alert(event_data);
+        //alert("Erika");
         loadData2(date);
         // Set click handlers for DOM elements
         $(".right-button").click({ date: date }, next_year);
@@ -57,8 +58,11 @@
                 var stime = eventx.booktime;
                 var count = eventx.bookvisitors;
                 var sdate = ' ' + year + '-' + month + '-' + day;
+                var bstatus = eventx.bookstatus;
                 var date = new Date(sdate);
-                if (booktype == 1) {
+                //alert(bstatus);
+                if (booktype == 1 && bstatus != 'Cancelled') {
+
                     new_event_json(booktype, name, count, date, day, stime);
                     var toDay = new Date();
                     day = toDay.getDay();
@@ -104,14 +108,14 @@
                 var events = check_events(day, month + 1, year);
                 if (today === day && $(".active-date").length === 0) {
                     curr_date.addClass("active-date");
-                    show_events(events, months[month], day,year);
+                    show_events(events, months[month], day, year);
                 }
                 // If this date has any events, style it with .event-date
                 if (events.length !== 0) {
                     curr_date.addClass("event-date");
                 }
                 // Set onClick handler for clicking a date
-                curr_date.click({ events: events, month: months[month], day: day,year: year }, date_click);
+                curr_date.click({ events: events, month: months[month], day: day, year: year }, date_click);
                 row.append(curr_date);
             }
         }
@@ -232,7 +236,7 @@
     }
 
     // Display all events of the selected date in card views
-    function show_events(events, month, day,year) {
+    function show_events(events, month, day, year) {
         // Clear the dates container
         $(".events-container").empty();
         $(".events-container").show(250);
@@ -240,7 +244,7 @@
         var sMnth = 1;
         if (month == "January") sMnth = 1;
         else if (month == "February") sMnth = 2;
-        else if (month == "Mar") sMnth = 3;
+        else if (month == "March") sMnth = 3;
         else if (month == "April") sMnth = 4;
         else if (month == "May") sMnth = 5;
         else if (month == "June") sMnth = 6;
@@ -258,14 +262,14 @@
             var event_card = $("<div class='event-card'></div>");
             var event_name = $("<div class='event-name'>Select your timing for " + month + " " + day + " " + year + ".</div> <br/><br/>");
             var event_buttons = $("<div style='margin-left: 10px;'><div class='button-group-area' id='btngrpx'> " +
-                "<input type='button' value='10:00AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1000'  name='but1000' > " +
-                "<input type='button' value='10:30AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1030' name='but1030' > " +
-                "<input type='button' value='11:00AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1100' name='but1100' > " +
-                "<input type='button' value='11:30AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1130' name='but1130' > " +
-                "<input type='button' value='12:00PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1200' name='but1200' > " +
-                "<input type='button' value='12:30PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1230' name='but1230' > " +
-                "<input type='button' value='01:00PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1300' name='but1300' > " +
-                "<input type='button' value='01:30PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1330' name='but1330' > " +
+                "<input type='button' class='btn btn-warning m-3' value='10:00AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1000' name='but1000' > " +
+                "<input type='button' class='btn btn-warning m-3' value='10:30AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1030' name='but1030' > " +
+                "<input type='button' class='btn btn-warning m-3' value='11:00AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1100' name='but1100' > " +
+                "<input type='button' class='btn btn-warning m-3' value='11:30AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1130' name='but1130' > " +
+                "<input type='button' class='btn btn-warning m-3' value='12:00PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1200' name='but1200' > " +
+                "<input type='button' class='btn btn-warning m-3' value='12:30PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1230' name='but1230' > " +
+                "<input type='button' class='btn btn-warning m-3' value='01:00PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1300' name='but1300' > " +
+                "<input type='button' class='btn btn-warning m-3' value='01:30PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1330' name='but1330' > " +
                 "</div ></div > ");
 
             $(event_card).css({ "border-left": "10px solid #FF1744" });
@@ -315,22 +319,22 @@
                 else if (dsTime == "1400") s1400 = 0;
                 else if (dsTime == "1430") s1430 = 0;
             }
-            if (s1000 == 0) strTimingSched = strTimingSched + "<input type='button' value='10:00AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1000'  name='but1000' disabled > ";
-            else strTimingSched = strTimingSched + "<input type='button' value='10:00AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1000'  name='but1000' > " ;
-            if (s1030 == 0) strTimingSched = strTimingSched + "<input type='button' value='10:30AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1030'  name='but1030' disabled > ";
-            else strTimingSched = strTimingSched + "<input type='button' value='10:30AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1030'  name='but1030' > ";
-            if (s1100 == 0) strTimingSched = strTimingSched + "<input type='button' value='11:00AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1100'  name='but1100' disabled > ";
-            else strTimingSched = strTimingSched + "<input type='button' value='11:00AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1100'  name='but1100' > ";
-            if (s1130 == 0) strTimingSched = strTimingSched + "<input type='button' value='11:30AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1130'  name='but1130' disabled > ";
-            else strTimingSched = strTimingSched + "<input type='button' value='11:30AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1130'  name='but1130' > ";
-            if (s1200 == 0) strTimingSched = strTimingSched + "<input type='button' value='12:00PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1200'  name='but1200' disabled > ";
-            else strTimingSched = strTimingSched + "<input type='button' value='12:00PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1200'  name='but1200' > ";
-            if (s1230 == 0) strTimingSched = strTimingSched + "<input type='button' value='12:30PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1230'  name='but1230' disabled > ";
-            else strTimingSched = strTimingSched + "<input type='button' value='12:30PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1230'  name='but1230' > ";
-            if (s1300 == 0) strTimingSched = strTimingSched + "<input type='button' value='01:00PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1300'  name='but1300' disabled > ";
-            else strTimingSched = strTimingSched + "<input type='button' value='01:00PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1300'  name='but1300' > ";
-            if (s1330 == 0) strTimingSched = strTimingSched + "<input type='button' value='01:30PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1330'  name='but1330' disabled > ";
-            else strTimingSched = strTimingSched + "<input type='button' value='01:30PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1330'  name='but1330' > ";
+            if (s1000 == 0) strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='10:00AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1000'  name='but1000' disabled > ";
+            else strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='10:00AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1000'  name='but1000' > ";
+            if (s1030 == 0) strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='10:30AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1030'  name='but1030' disabled > ";
+            else strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='10:30AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1030'  name='but1030' > ";
+            if (s1100 == 0) strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='11:00AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1100'  name='but1100' disabled > ";
+            else strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='11:00AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1100'  name='but1100' > ";
+            if (s1130 == 0) strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='11:30AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1130'  name='but1130' disabled > ";
+            else strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='11:30AM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1130'  name='but1130' > ";
+            if (s1200 == 0) strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='12:00PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1200'  name='but1200' disabled > ";
+            else strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='12:00PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1200'  name='but1200' > ";
+            if (s1230 == 0) strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='12:30PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1230'  name='but1230' disabled > ";
+            else strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='12:30PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1230'  name='but1230' > ";
+            if (s1300 == 0) strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='01:00PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1300'  name='but1300' disabled > ";
+            else strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='01:00PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1300'  name='but1300' > ";
+            if (s1330 == 0) strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='01:30PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1330'  name='but1330' disabled > ";
+            else strTimingSched = strTimingSched + "<input type='button' class='btn btn-warning m-3' value='01:30PM' onclick='setTiming(this.value," + day + "," + year + "," + sMnth + ")' id='but1330'  name='but1330' > ";
 
 
             strTimingSched = strTimingSched + "</div ></div >";
