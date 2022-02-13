@@ -19,5 +19,6 @@ namespace Caderly.Models
         public string booktime { get; set; }
         public string bookstatus { get; set; }
         public string bookduration { get; set; }
+        public DateTime bookdate { get; set; }
     }
 }

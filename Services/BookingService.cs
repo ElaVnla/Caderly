@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
+using MimeKit.Text;
 
 namespace Caderly.Services
 {
@@ -15,6 +19,7 @@ namespace Caderly.Services
         List<BookInfo> BookListDB();
         BookInfo BookListGetInfoDB(string bookId);
         bool BookListDBUpdate(BookInfo bookInfo);
+        void doSetMissed();
     }
     public class BookingService : IBookingService
     {
@@ -98,6 +103,14 @@ namespace Caderly.Services
         {
             List<BookInfo> AllBookInfo = new List<BookInfo>();
             AllBookInfo = _context.BookInfo.ToList();
+            AllBookInfo.Sort((d1, d2) => System.DateTime.Compare(d1.bookdate, d2.bookdate));
+            //var enum1 = AllBookInfo.OrderBy(d => d.bookdate);
+            //AllBookInfo.Clear();
+            //foreach (var bookinfo in enum1)
+            //{
+            //    AllBookInfo.Add(bookinfo);
+            //}
+            //objLis.Sort((d1, d2) => System.DateTime.Compare(d1.bookdate, d2.bookdate));
             return AllBookInfo;
         }
 
@@ -139,6 +152,82 @@ namespace Caderly.Services
         {
             return UpdateBookInfo(bookInfo);
 
+        }
+        public void doSetMissed()
+        {
+            List<BookInfo> lstBookInfo = new List<BookInfo>();
+            lstBookInfo = BookListDB();
+            foreach (var bookInfo in lstBookInfo)
+            {
+                if (bookInfo.bookdate < System.DateTime.Now && bookInfo.bookstatus == "OnGoing")
+                {
+                    bookInfo.bookstatus = "Missed";
+                    bool retval = BookListDBUpdate(bookInfo);
+                    doSendEmailHTML(bookInfo);
+
+                }
+            }
+
+        }
+        private void doSendEmailHTML(BookInfo bookInfo)
+        {
+            string[] strMonth = {"January","February","March","April","May","June",
+                                                                         "July","August","September","October","November","December"};
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("caderlytest@gmail.com"));
+            email.To.Add(MailboxAddress.Parse("erika.sampang.c@gmail.com"));
+            email.Subject = "You've missed your booking!";
+            if (bookInfo.booktype == 1)
+            {
+                email.Body = new TextPart(TextFormat.Html) { Text = "You have unfortunetly missed the following booking:<br/> " + @"
+                    <label><strong>Day and time:&nbsp;</strong></label>
+                                <h5>" + bookInfo.bookday + "&nbsp;" + bookInfo.booktime + @" &nbsp; visitors</h5></br>
+                        <label><strong>Month of booking:&nbsp;</strong></label>
+                                <h5>" + strMonth[bookInfo.bookmonth - 1] + @" &nbsp; visitors</h5><br/>
+                        <label><strong>Year of booking:&nbsp;</strong></label>
+                                <h5>" + bookInfo.bookyear + @" &nbsp; visitors</h5><br/>
+                        <label><strong>Title of booking:&nbsp;</strong></label>
+                            <h5><strong></strong>" + bookInfo.booktitle + @"</h5><br/>
+                        <label><strong>No.of visitors:&nbsp;</strong></label>
+                                <h5>" + bookInfo.bookvisitors + @" &nbsp; visitors</h5><br/>
+                        <div class='col row'>
+                                <label><strong>Duration of stay:&nbsp;</strong></label>
+                                <h5>" + bookInfo.bookduration + @"</h5><br/>
+                            </div>
+                        <label><strong>location:&nbsp;</strong></label>
+                            <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                        
+   " };
+            }
+            else
+            {
+                email.Body = new TextPart(TextFormat.Html) { Text = "You have unfortunetly missed the following booking:<br/> " + @"
+                    <label><strong>Day and time:&nbsp;</strong></label>
+                                <h5>" + bookInfo.bookday + "&nbsp;" + bookInfo.booktime + @" &nbsp; visitors</h5></br>
+                        <label><strong>Month of booking:&nbsp;</strong></label>
+                                <h5>" + strMonth[bookInfo.bookmonth - 1] + @" &nbsp; visitors</h5><br/>
+                        <label><strong>Year of booking:&nbsp;</strong></label>
+                                <h5>" + bookInfo.bookyear + @" &nbsp; visitors</h5><br/>
+                        <label><strong>Title of booking:&nbsp;</strong></label>
+                            <h5><strong></strong>" + bookInfo.booktitle + @"</h5><br/>
+                        <label><strong>No.of visitors:&nbsp;</strong></label>
+                                <h5>" + bookInfo.bookvisitors + @" &nbsp; visitors</h5><br/>
+                        <div class='col row'>
+                                <label><strong>Duration of stay:&nbsp;</strong></label>
+                                <h5>" + bookInfo.bookduration + @"</h5><br/>
+                            </div>
+                        <label><strong>Platform:&nbsp;</strong></label>
+                            <h5>Via zoom</h5>                    
+   " };
+            }
+
+
+            // send email
+            using var smtp = new SmtpClient();
+            smtp.Connect("smtp-relay.sendinblue.com", 587, SecureSocketOptions.StartTls);
+            smtp.Authenticate("caderlytest@gmail.com", "x56msVOYnUSv0fzd");
+            smtp.Send(email);
+            smtp.Disconnect(true);
         }
         public bool UpdateBookInfo(BookInfo bookInfo)
         {

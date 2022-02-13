@@ -39,19 +39,26 @@
                             <a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Ongoing</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">History</a>
+                            <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">Cancelled</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">My Calendar</a>
+                            <a class="nav-link" id="forth-tab" data-toggle="tab" href="#four" role="tab" aria-controls="four" aria-selected="false">Completed</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="fifth-tab" data-toggle="tab" href="#five" role="tab" aria-controls="five" aria-selected="false">Missed</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">All History</a>
                         </li>
                     </ul>
                 </div>
 
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
-                        <div style="overflow-y:scroll; max-height:400px;">
-                            @if (Model.BookInfoList != null)
-                            {
+                        @if (Model.BookInfoList.Count > 0)
+                        {
+                            <div style="overflow-y:scroll; max-height:400px;">
+
                                 @foreach (var bookInfo in Model.BookInfoList)
                                 {
                                     @if (bookInfo.bookstatus == "OnGoing")
@@ -80,7 +87,7 @@
                                                         {
                                                             <div class="row col-sm-10 pb-10">
                                                                 <label><strong>Title of booking:&nbsp;</strong></label>
-                                                                <h5><strong></strong>Face to Face</h5>
+                                                                <h5><strong></strong>@bookInfo.booktitle</h5>
 
                                                             </div>
                                                             <div class="row col-sm-7 pb-10">
@@ -104,7 +111,7 @@
                                                         {
                                                             <div class="row col-sm-10 pb-10">
                                                                 <label><strong>Title of booking:&nbsp;</strong></label>
-                                                                <h5><strong></strong>Video Call</h5>
+                                                                <h5><strong></strong>@bookInfo.booktitle</h5>
 
                                                             </div>
                                                             <div class="row col-sm-7 pb-10">
@@ -124,9 +131,9 @@
 
                                                     <div class="float-right">
                                                         <div>
-                                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Edit Booking</a>
+                                                            <a href="lovedones_editbooking?bookId=@bookInfo.bookId" class="genric-btn primary-border circle">Edit</a>
                                                             <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Add to google calendar</a>
-                                                            <button type="submit" class="genric-btn primary-border circle">Cancel</button>
+                                                            <button class="genric-btn primary-border circle" id="butDel" name="butDel">Cancel</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -134,17 +141,22 @@
                                         </form>
                                     }
                                 }
-                            }
-                            else
-                            {
-                                <h1>No Booking Yet!</h1>
-                            }
-                        </div>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="d-flex justify-content-center">
+                                <div class="col-5">
+                                    <h5>You currently do not have any Ongoing bookings!</h5>
+                                </div>
+                            </div>
+                        }
                     </div>
                     <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
-                        <div style="overflow-y:scroll; max-height:400px;">
-                            @if (Model.BookInfoList != null)
-                            {
+                        @if (Model.BookInfoList.Count > 0)
+                        {<div style="overflow-y:scroll; max-height:400px;">
+
                                 @foreach (var bookInfo in Model.BookInfoList)
                                 {
                                     <form method="post">
@@ -171,7 +183,7 @@
                                                     {
                                                         <div class="row col-sm-10 pb-10">
                                                             <label><strong>Title of booking:&nbsp;</strong></label>
-                                                            <h5><strong></strong>Face to Face</h5>
+                                                            <h5><strong></strong>@bookInfo.booktitle</h5>
 
                                                         </div>
                                                         <div class="row col-sm-7 pb-10">
@@ -195,7 +207,7 @@
                                                     {
                                                         <div class="row col-sm-10 pb-10">
                                                             <label><strong>Title of booking:&nbsp;</strong></label>
-                                                            <h5><strong></strong>Video Call</h5>
+                                                            <h5><strong></strong>@bookInfo.booktitle</h5>
 
                                                         </div>
                                                         <div class="row col-sm-7 pb-10">
@@ -224,11 +236,16 @@
                                                             <strong><h6 style="color:blue;">Booking Completed</h6></strong>
 
                                                         }
+                                                        else if (bookInfo.bookstatus == "Missed")
+                                                        {
+                                                            <strong><h6 style="color:red;">Missed Booking</h6></strong>
+
+                                                        }
                                                         else
                                                         {
-                                                            <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Edit Booking</a>
+                                                            <a href="lovedones_editbooking?bookId=@bookInfo.bookId" class="genric-btn primary-border circle">Edit</a>
                                                             <a asp-area="" asp-page="/" class="genric-btn primary-border circle">Add to google calendar</a>
-                                                            <button type="submit" class="genric-btn primary-border circle">Cancel</button>
+                                                            <button class="genric-btn primary-border circle" id="butDel" name="butDel">Cancel</button>
                                                         }
 
                                                     </div>
@@ -237,44 +254,311 @@
                                         </div>
                                     </form>
                                 }
-                            }
-                            else
-                            {
-                                <h1>No Booking Yet!</h1>
-                            }
-                        </div>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="d-flex justify-content-center">
+                                <div class="col-5">
+                                    <h5>You currently do not have any bookings!</h5>
+                                </div>
+                            </div>
+                        }
                     </div>
                     <div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
-                        <div style="">
-                            <div>
-                                <h5 class="card-title">Tab Card One</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                            <div>
-                                <h5 class="card-title">Tab Card One</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                            <div>
-                                <h5 class="card-title">Tab Card One</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                            <div>
-                                <h5 class="card-title">Tab Card One</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                            <div>
-                                <h5 class="card-title">Tab Card One</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                        @if (Model.BookInfoList.Count > 0)
+                        {
+                            <div style="overflow-y:scroll; max-height:400px;">
+
+                                @foreach (var bookInfo in Model.BookInfoList)
+                                {
+                                    @if (bookInfo.bookstatus == "Cancelled")
+                                    {
+                                        <form method="post">
+
+                                            <div class="card w-100 mb-30 mr-10 shadow">
+                                                <div class="card-body">
+                                                    <div style="visibility:hidden;">
+                                                        <input type="text" id="txtBookId" name="txtBookId" value="@bookInfo.bookId" />
+                                                    </div>
+                                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                                        <ul class="list-group list-group-flush">
+                                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>@bookInfo.bookday</strong></h1></center></li>
+                                                            @{
+                                                                string[] strMonth = {"January","February","March","April","May","June",
+                                                                         "July","August","September","October","November","December"};
+                                                                <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>@strMonth[bookInfo.bookmonth - 1]</strong></h1></li>
+                                                            }
+                                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>@bookInfo.bookyear &nbsp; &nbsp; @bookInfo.booktime</strong></h6></li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="float-right col-sm-9 pl-5">
+                                                        @if (bookInfo.booktype == 1)
+                                                        {
+                                                            <div class="row col-sm-10 pb-10">
+                                                                <label><strong>Title of booking:&nbsp;</strong></label>
+                                                                <h5><strong></strong>@bookInfo.booktitle</h5>
+
+                                                            </div>
+                                                            <div class="row col-sm-7 pb-10">
+                                                                <div class="col row">
+                                                                    <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                                    <h5>@bookInfo.bookvisitors &nbsp; visitors</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row col-sm-7 pb-10">
+                                                                <div class="col row">
+                                                                    <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                                    <h5>@bookInfo.bookduration</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row col-sm-10">
+                                                                <label><strong>location:&nbsp;</strong></label>
+                                                                <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="row col-sm-10 pb-10">
+                                                                <label><strong>Title of booking:&nbsp;</strong></label>
+                                                                <h5><strong></strong>@bookInfo.booktitle</h5>
+
+                                                            </div>
+                                                            <div class="row col-sm-7 pb-10">
+                                                                <div class="col row">
+                                                                    <label><strong>Duration of Call:&nbsp;</strong></label>
+                                                                    <h5>@bookInfo.bookduration</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row col-sm-10">
+                                                                <label><strong>Platform:&nbsp;</strong></label>
+                                                                <h5>Via Zoom</h5>
+                                                            </div>
+                                                            <br />
+                                                            <br />
+                                                        }
+                                                    </div>
+
+                                                    <div class="float-right">
+                                                        <div>
+                                                            <strong><h6 style="color:red;">Booking Cancelled</h6></strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    }
+
+                                }
                             </div>
 
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="d-flex justify-content-center">
+                                <div class="col-5">
+                                    <h5>You currently do not have any Cancelled bookings!</h5>
+                                </div>
+                            </div>
+                        }
                     </div>
+                    <div class="tab-pane fade p-3" id="four" role="tabpanel" aria-labelledby="four-tab">
+                        @if (Model.BookInfoList.Count > 0)
+                        {
+                            <div style="overflow-y:scroll; max-height:400px;">
 
+                                @foreach (var bookInfo in Model.BookInfoList)
+                                {
+                                    @if (bookInfo.bookstatus == "Completed")
+                                    {
+                                        <form method="post">
+
+                                            <div class="card w-100 mb-30 mr-10 shadow">
+                                                <div class="card-body">
+                                                    <div style="visibility:hidden;">
+                                                        <input type="text" id="txtBookId" name="txtBookId" value="@bookInfo.bookId" />
+                                                    </div>
+                                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                                        <ul class="list-group list-group-flush">
+                                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>@bookInfo.bookday</strong></h1></center></li>
+                                                            @{
+                                                                string[] strMonth = {"January","February","March","April","May","June",
+                                                                         "July","August","September","October","November","December"};
+                                                                <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>@strMonth[bookInfo.bookmonth - 1]</strong></h1></li>
+                                                            }
+                                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>@bookInfo.bookyear &nbsp; &nbsp; @bookInfo.booktime</strong></h6></li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="float-right col-sm-9 pl-5">
+                                                        @if (bookInfo.booktype == 1)
+                                                        {
+                                                            <div class="row col-sm-10 pb-10">
+                                                                <label><strong>Title of booking:&nbsp;</strong></label>
+                                                                <h5><strong></strong>@bookInfo.booktitle</h5>
+
+                                                            </div>
+                                                            <div class="row col-sm-7 pb-10">
+                                                                <div class="col row">
+                                                                    <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                                    <h5>@bookInfo.bookvisitors &nbsp; visitors</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row col-sm-7 pb-10">
+                                                                <div class="col row">
+                                                                    <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                                    <h5>@bookInfo.bookduration</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row col-sm-10">
+                                                                <label><strong>location:&nbsp;</strong></label>
+                                                                <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="row col-sm-10 pb-10">
+                                                                <label><strong>Title of booking:&nbsp;</strong></label>
+                                                                <h5><strong></strong>@bookInfo.booktitle</h5>
+
+                                                            </div>
+                                                            <div class="row col-sm-7 pb-10">
+                                                                <div class="col row">
+                                                                    <label><strong>Duration of Call:&nbsp;</strong></label>
+                                                                    <h5>@bookInfo.bookduration</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row col-sm-10">
+                                                                <label><strong>Platform:&nbsp;</strong></label>
+                                                                <h5>Via Zoom</h5>
+                                                            </div>
+                                                            <br />
+                                                            <br />
+                                                        }
+                                                    </div>
+
+                                                    <div class="float-right">
+                                                        <div>
+                                                            <strong><h6 style="color:green;">Completed</h6></strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    }
+
+                                }
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="d-flex justify-content-center">
+                                <div class="col-5">
+                                    <h5>You currently do not have any completed bookings!</h5>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="tab-pane fade p-3" id="five" role="tabpanel" aria-labelledby="one-tab">
+                        @if (Model.BookInfoList.Count > 0)
+                        {
+                            <div style="overflow-y:scroll; max-height:400px;">
+
+                                @foreach (var bookInfo in Model.BookInfoList)
+                                {
+                                    @if (bookInfo.bookstatus == "Missed")
+                                    {
+                                        <form method="post">
+
+                                            <div class="card w-100 mb-30 mr-10 shadow">
+                                                <div class="card-body">
+                                                    <div style="visibility:hidden;">
+                                                        <input type="text" id="txtBookId" name="txtBookId" value="@bookInfo.bookId" />
+                                                    </div>
+                                                    <div class="float-left col-sm-3 d-flex justify-content-center border-right">
+                                                        <ul class="list-group list-group-flush">
+                                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><center><h1><strong>@bookInfo.bookday</strong></h1></center></li>
+                                                            @{
+                                                                string[] strMonth = {"January","February","March","April","May","June",
+                                                                         "July","August","September","October","November","December"};
+                                                                <li class="list-group-item d-flex justify-content-center" style="border: none;"><h1><strong>@strMonth[bookInfo.bookmonth - 1]</strong></h1></li>
+                                                            }
+                                                            <li class="list-group-item d-flex justify-content-center" style="border: none;"><h6><strong>@bookInfo.bookyear &nbsp; &nbsp; @bookInfo.booktime</strong></h6></li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="float-right col-sm-9 pl-5">
+                                                        @if (bookInfo.booktype == 1)
+                                                        {
+                                                            <div class="row col-sm-10 pb-10">
+                                                                <label><strong>Title of booking:&nbsp;</strong></label>
+                                                                <h5><strong></strong>@bookInfo.booktitle</h5>
+
+                                                            </div>
+                                                            <div class="row col-sm-7 pb-10">
+                                                                <div class="col row">
+                                                                    <label><strong>No. of visitors:&nbsp;</strong></label>
+                                                                    <h5>@bookInfo.bookvisitors &nbsp; visitors</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row col-sm-7 pb-10">
+                                                                <div class="col row">
+                                                                    <label><strong>Duration of stay:&nbsp;</strong></label>
+                                                                    <h5>@bookInfo.bookduration</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row col-sm-10">
+                                                                <label><strong>location:&nbsp;</strong></label>
+                                                                <h5>49 Upper Thomson Rd, Singapore 574325</h5>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="row col-sm-10 pb-10">
+                                                                <label><strong>Title of booking:&nbsp;</strong></label>
+                                                                <h5><strong></strong>@bookInfo.booktitle</h5>
+
+                                                            </div>
+                                                            <div class="row col-sm-7 pb-10">
+                                                                <div class="col row">
+                                                                    <label><strong>Duration of Call:&nbsp;</strong></label>
+                                                                    <h5>@bookInfo.bookduration</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row col-sm-10">
+                                                                <label><strong>Platform:&nbsp;</strong></label>
+                                                                <h5>Via Zoom</h5>
+                                                            </div>
+                                                            <br />
+                                                            <br />
+                                                        }
+                                                    </div>
+
+                                                    <div class="float-right">
+                                                        <div>
+                                                            <strong><h6 style="color:red;">Missed booking</h6></strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    }
+                                }
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="d-flex justify-content-center">
+                                <div class="col-5">
+                                    <h5>You currently do not have any Missed bookings!</h5>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
